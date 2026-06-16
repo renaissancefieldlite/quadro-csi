@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quadro CSI Judges Overview</title>
+    <link rel="stylesheet" href="public-doc.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="topline">Renaissance Field Lite / Band of Agents</p>
+        <h1>Quadro CSI Judges Overview</h1>
+        <p class="lede">
+          Quadro CSI is a Band-connected multi-agent review workspace that turns regulated
+          customer escalations into consent-aware, source-backed, audit-ready decision packets.
+        </p>
+        <nav class="nav" aria-label="public proof links">
+          <a class="button primary" href="../../index.html">Quadro Home</a>
+          <a class="button" href="SUBMISSION_DEMO_PROOF.html">Integrated Proof</a>
+          <a class="button" href="quadro_csi_submission_deck.pptx">Slide Deck</a>
+        </nav>
+      </section>
+
+      <section class="grid two">
+        <article class="panel">
+          <p class="section-kicker">Primary Track</p>
+          <h2>Track 3: Regulated & High-Stakes Workflows</h2>
+          <p>
+            Quadro fits Track 3 because regulated customer decisions need traceability,
+            escalation, careful review, and a clear decision state before human signoff.
+          </p>
+        </article>
+        <article class="panel">
+          <p class="section-kicker">Secondary Fit</p>
+          <h2>Track 1: Internal Enterprise Workflows</h2>
+          <p>
+            The workflow moves across customer intake, evidence review, policy/risk review,
+            and final decision handoff.
+          </p>
+        </article>
+      </section>
+
+      <section class="callout">
+        <p class="section-kicker">Problem</p>
+        <h2>Customer decisions lose context when work crosses teams.</h2>
+        <p>
+          A support owner may need to approve a refund, release a disclosure, send an export,
+          approve a payout, or route a policy exception. Quadro keeps consent state, source
+          evidence, approval state, and policy blockers attached to the handoff.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <h3>Input Cohesion</h3>
+          <p>Stabilizes the request, source scope, consent signals, missing evidence cues, and next gate before handoff.</p>
+        </article>
+        <article class="panel">
+          <h3>Customer Intake</h3>
+          <p>Frames the requested action, owner, consent scope, and task mode.</p>
+        </article>
+        <article class="panel">
+          <h3>Evidence Spine</h3>
+          <p>Retrieves source-backed evidence, records missing support, and builds the evidence manifest.</p>
+        </article>
+        <article class="panel">
+          <h3>Policy / Risk</h3>
+          <p>Checks consent state, approval requirements, policy prohibitions, escalation needs, and blockers.</p>
+        </article>
+        <article class="panel">
+          <h3>Decision Packet</h3>
+          <p>Returns approve, say no, or need more information with an audit-ready state packet.</p>
+        </article>
+        <article class="panel">
+          <h3>Band Collaboration</h3>
+          <p>Maps each role to a Band remote agent identity and publishes role-specific handoff events.</p>
+        </article>
+      </section>
+
+      <section class="callout">
+        <p class="section-kicker">Input Cohesion</p>
+        <h2>Public-safe stabilization layer</h2>
+        <p>
+          Multi-agent workflows can fail when agents see different versions of the request.
+          Input cohesion creates a shared starting packet so consent changes, correction markers,
+          open questions, source counts, and review gates stay aligned through the chain.
+        </p>
+        <p>
+          This feature is derived from Renaissance Field Lite's internal work on keeping
+          long-running AI workflows coherent, but the Quadro implementation is standalone and
+          public-safe. It does not include private prompts, private memory stores, model
+          checkpoints, raw captures, or protected internal mechanics.
+        </p>
+      </section>
+
+      <section class="panel">
+        <p class="section-kicker">Acceptance Coverage</p>
+        <h2>Nine public-safe regulated workflow packs</h2>
+        <div class="grid">
+          <div><span class="pill good">Approve</span><p>Scoped refund approval</p></div>
+          <div><span class="pill stop">Say No</span><p>Revoked consent block</p></div>
+          <div><span class="pill">Need More Info</span><p>Missing financial approval</p></div>
+          <div><span class="pill good">Approve</span><p>Narrowed-consent reroute</p></div>
+          <div><span class="pill good">Approve</span><p>Insurance claim approval</p></div>
+          <div><span class="pill">Need More Info</span><p>Banking/KYC missing approval</p></div>
+          <div><span class="pill stop">Say No</span><p>Legal authority revoked</p></div>
+          <div><span class="pill stop">Say No</span><p>Government procurement policy block</p></div>
+          <div><span class="pill">Need More Info</span><p>Cybersecurity disclosure review</p></div>
+        </div>
+      </section>
+
+      <section class="stat-grid">
+        <div class="stat"><span>Baseline</span><strong>9 / 9</strong></div>
+        <div class="stat"><span>Stabilized</span><strong>9 / 9</strong></div>
+        <div class="stat"><span>Decision Changes</span><strong>0</strong></div>
+        <div class="stat"><span>Evidence Lift</span><strong>+25</strong></div>
+      </section>
+
+      <section class="callout">
+        <p class="section-kicker">Partner Model Lanes</p>
+        <h2>AI/ML API and Featherless are verifier paths, not decision authority.</h2>
+        <p>
+          Quadro can call AI/ML API or Featherless AI after the deterministic agent review has
+          already produced a decision packet. The providers summarize the state path, evidence
+          basis, final gate, and human signoff requirement.
+        </p>
+      </section>
+
+      <section class="panel">
+        <p class="section-kicker">Clean Demo Anchor</p>
+        <h2>Revoked-consent customer export</h2>
+        <div class="timeline">
+          <div class="step"><b>1</b><p>Add the customer request and source document.</p></div>
+          <div class="step"><b>2</b><p>Run the agent review.</p></div>
+          <div class="step"><b>3</b><p>Show input cohesion catching the consent/correction signal.</p></div>
+          <div class="step"><b>4</b><p>Show Intake, Evidence, Policy/Risk, and Decision handoffs.</p></div>
+          <div class="step"><b>5</b><p>Show the final SAY_NO decision and stopped consent gate.</p></div>
+          <div class="step"><b>6</b><p>Show Band publish evidence and partner verifier readouts.</p></div>
+        </div>
+      </section>
+
+      <p class="footer">Verified against the live lablab.ai event page on 2026-06-12.</p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quadro CSI Integrated Proof</title>
+    <link rel="stylesheet" href="public-doc.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="hero">
+        <p class="topline">Quadro CSI / Submission Proof</p>
+        <h1>Integrated Proof</h1>
+        <p class="lede">
+          A live integrated capture ran the revoked-consent review pack through Quadro,
+          published the four-agent handoff to Band, then called Featherless AI and AI/ML API
+          as post-decision verifier lanes.
+        </p>
+        <nav class="nav" aria-label="public proof links">
+          <a class="button primary" href="../../index.html">Quadro Home</a>
+          <a class="button" href="JUDGES_OVERVIEW.html">Judges Overview</a>
+          <a class="button" href="quadro_csi_submission_deck.pptx">Slide Deck</a>
+        </nav>
+      </section>
+
+      <section class="stat-grid">
+        <div class="stat"><span>Document Set</span><strong>02 revoked consent</strong></div>
+        <div class="stat"><span>Quadro Outcome</span><strong>SAY_NO</strong></div>
+        <div class="stat"><span>Band Events</span><strong>4</strong></div>
+        <div class="stat"><span>Partner Verifiers</span><strong>2 passed</strong></div>
+      </section>
+
+      <section class="panel">
+        <p class="section-kicker">Decision Packet</p>
+        <h2>Quadro stopped the export because consent was revoked.</h2>
+        <div class="table">
+          <div class="row"><strong>Gate</strong><span>stopped consent revoked</span></div>
+          <div class="row"><strong>Recommendation</strong><span>do not proceed without new consent</span></div>
+          <div class="row"><strong>Risk</strong><span>high</span></div>
+          <div class="row"><strong>Evidence items</strong><span>13</span></div>
+          <div class="row"><strong>Input cohesion</strong><span>stabilized, then routed to blocker-focused review</span></div>
+          <div class="row"><strong>Band publish</strong><span>true, with 4 handoff events</span></div>
+          <div class="row"><strong>Partner errors</strong><span>none captured</span></div>
+        </div>
+      </section>
+
+      <section class="grid two">
+        <article class="panel provider">
+          <p class="section-kicker">Featherless AI Verifier</p>
+          <h2>Passed</h2>
+          <p><strong>Model:</strong> Qwen/Qwen2.5-7B-Instruct</p>
+          <p><strong>Usage:</strong> 1065 total tokens</p>
+          <div class="quote">
+            <ul>
+              <li>Outcome: SAY_NO due to revoked consent.</li>
+              <li>Evidence: withdrawal note and export scope data.</li>
+              <li>Consent gate: stopped due to consent revoked.</li>
+              <li>Human next step: pause export and seek new written authorization.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="panel provider">
+          <p class="section-kicker">AI/ML API Verifier</p>
+          <h2>Passed</h2>
+          <p><strong>Model:</strong> gpt-4o-mini-2024-07-18</p>
+          <p><strong>Usage:</strong> 656 total tokens</p>
+          <div class="quote">
+            <ul>
+              <li>Outcome: export cannot proceed due to revoked consent.</li>
+              <li>Evidence: withdrawal note and privacy approval policy indicate consent was revoked.</li>
+              <li>Consent gate: route to privacy owner for written re-authorization.</li>
+              <li>Human next step: collect new written authorization before release.</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <section class="callout">
+        <p class="section-kicker">Important Boundary</p>
+        <h2>The partner models did not make the decision.</h2>
+        <p>
+          Quadro computed the decision first using its review chain, policy gates, consent state,
+          and evidence manifest. Featherless AI and AI/ML API were then used as independent
+          explanation lanes over the saved decision packet.
+        </p>
+      </section>
+
+      <section class="panel">
+        <p class="section-kicker">Capture Artifact</p>
+        <h2>Saved integrated run</h2>
+        <p>
+          The captured run is stored in the local audit bundle as
+          <strong>audit/submission_demo_20260616T051948Z.json</strong>, with matching JSONL and SQLite traces.
+        </p>
+        <p>
+          Capture command: <strong>scripts/run_submission_demo_capture.py --providers aimlapi featherless --live</strong>
+        </p>
+      </section>
+
+      <p class="footer">Public proof page generated from the captured submission run.</p>
+    </main>
+  </body>
+</html>
