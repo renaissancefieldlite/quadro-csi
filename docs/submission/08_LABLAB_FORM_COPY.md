@@ -64,7 +64,7 @@ https://github.com/renaissancefieldlite/quadro-csi
 ## Demo URL
 
 ```text
-https://renaissancefieldlite.github.io/quadro-csi/
+https://renaissancefieldlite.com/quadro-csi/
 ```
 
 ## Video URL

@@ -31,7 +31,7 @@ Primary track: Track 3 - Regulated & High-Stakes Workflows
 | Video presentation | `submission_video/capcut_voiceover_pack/FINALVOICEOVERFROMABLETONLEFTRANSCRIPT.mp4` |
 | Slide presentation | `docs/public/quadro_csi_submission_deck.pptx` |
 | Public GitHub repository | `https://github.com/renaissancefieldlite/quadro-csi` |
-| Demo platform / Application URL | `https://renaissancefieldlite.github.io/quadro-csi/` |
+| Demo platform / Application URL | `https://renaissancefieldlite.com/quadro-csi/` |
 | Form copy | `docs/public/SUBMISSION_FORM_COPY.md` |
 | Proof readout | `docs/public/SUBMISSION_DEMO_PROOF.md` |
 
@@ -54,7 +54,7 @@ The public repo is published from the clean public package.
 ```text
 Repository: https://github.com/renaissancefieldlite/quadro-csi
 Branch: main
-Hosted submission hub: https://renaissancefieldlite.github.io/quadro-csi/
+Hosted submission hub: https://renaissancefieldlite.com/quadro-csi/
 ```
 
 Before pushing, run the public gate:

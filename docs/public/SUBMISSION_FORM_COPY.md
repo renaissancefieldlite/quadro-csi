@@ -61,5 +61,5 @@ Video presentation: submission_video/capcut_voiceover_pack/FINALVOICEOVERFROMABL
 Slide deck: docs/public/quadro_csi_submission_deck.pptx
 Integrated proof readout: docs/public/SUBMISSION_DEMO_PROOF.md
 Public GitHub repository: https://github.com/renaissancefieldlite/quadro-csi
-Application URL: https://renaissancefieldlite.github.io/quadro-csi/
+Application URL: https://renaissancefieldlite.com/quadro-csi/
 ```

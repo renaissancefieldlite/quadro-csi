@@ -12,7 +12,7 @@ For the actual interactive app, use a small web host that can run Python.
 
 ```text
 Public GitHub repo: https://github.com/renaissancefieldlite/quadro-csi
-GitHub Pages: https://renaissancefieldlite.github.io/quadro-csi/
+GitHub Pages: https://renaissancefieldlite.com/quadro-csi/
 Render or Railway: live Quadro Python server
 Lablab Application URL: GitHub Pages fallback unless a live Render/Railway URL is added
 Lablab Repository URL: public GitHub repo
