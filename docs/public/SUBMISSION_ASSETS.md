@@ -30,8 +30,8 @@ Primary track: Track 3 - Regulated & High-Stakes Workflows
 | Cover image | `app/static/assets/quadro-cover.png` |
 | Video presentation | `submission_video/capcut_voiceover_pack/FINALVOICEOVERFROMABLETONLEFTRANSCRIPT.mp4` |
 | Slide presentation | `docs/public/quadro_csi_submission_deck.pptx` |
-| Public GitHub repository | Pending final publish |
-| Demo platform / Application URL | Pending host or GitHub Pages fallback |
+| Public GitHub repository | `https://github.com/renaissancefieldlite/quadro-csi` |
+| Demo platform / Application URL | `https://renaissancefieldlite.github.io/quadro-csi/` |
 | Form copy | `docs/public/SUBMISSION_FORM_COPY.md` |
 | Proof readout | `docs/public/SUBMISSION_DEMO_PROOF.md` |
 
@@ -49,12 +49,12 @@ Partner errors: {}
 
 ## GitHub Status
 
-The local repo is public-package ready but not yet published.
+The public repo is published from the clean public package.
 
 ```text
-Current local state: no commits yet on main
-Current remote: none
-Recommended public repo name: quadro-csi
+Repository: https://github.com/renaissancefieldlite/quadro-csi
+Branch: main
+Hosted submission hub: https://renaissancefieldlite.github.io/quadro-csi/
 ```
 
 Before pushing, run the public gate:

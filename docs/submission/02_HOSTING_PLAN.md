@@ -11,10 +11,10 @@ For the actual interactive app, use a small web host that can run Python.
 ## Recommended Setup
 
 ```text
-Public GitHub repo: code, README, docs, datasets, screenshots
-GitHub Pages: static landing page / demo explainer
+Public GitHub repo: https://github.com/renaissancefieldlite/quadro-csi
+GitHub Pages: https://renaissancefieldlite.github.io/quadro-csi/
 Render or Railway: live Quadro Python server
-Lablab Application URL: live Render/Railway URL
+Lablab Application URL: GitHub Pages fallback unless a live Render/Railway URL is added
 Lablab Repository URL: public GitHub repo
 ```
 
@@ -49,4 +49,3 @@ If we cannot deploy an interactive backend before submission:
 
 This is weaker than a live hosted app, but acceptable as a fallback if the video
 clearly shows the working local product and Band run.
-

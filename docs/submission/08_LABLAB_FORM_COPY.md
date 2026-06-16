@@ -58,13 +58,13 @@ Operations
 ## Repository URL
 
 ```text
-<public GitHub repo URL>
+https://github.com/renaissancefieldlite/quadro-csi
 ```
 
 ## Demo URL
 
 ```text
-<hosted app URL>
+https://renaissancefieldlite.github.io/quadro-csi/
 ```
 
 ## Video URL

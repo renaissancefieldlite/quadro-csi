@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quadro CSI | Renaissance Field Lite</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #0c1720;
+        --muted: #5b6b78;
+        --line: #cfe4ef;
+        --accent: #0b7fa2;
+        --gold: #b98a1b;
+        --panel: rgba(255, 255, 255, 0.92);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(246, 252, 255, 0.88)),
+          url("app/static/assets/rfl-harmonic-scanner.png") center / cover fixed;
+      }
+
+      main {
+        width: min(1120px, calc(100% - 36px));
+        margin: 0 auto;
+        padding: 36px 0 48px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 28px;
+        align-items: center;
+        padding: 26px 0 32px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        color: var(--gold);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(42px, 7vw, 82px);
+        line-height: 0.9;
+        letter-spacing: 0;
+      }
+
+      .lede {
+        max-width: 680px;
+        margin: 18px 0 0;
+        color: #3d4d5b;
+        font-size: 20px;
+        line-height: 1.45;
+      }
+
+      .cover {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border: 1px solid #15202a;
+        box-shadow: 0 24px 60px rgba(14, 42, 57, 0.18);
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      a.button {
+        display: inline-flex;
+        align-items: center;
+        min-height: 42px;
+        padding: 10px 16px;
+        border: 1px solid #8dcce4;
+        color: #064f66;
+        background: #f4fcff;
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      a.button.primary {
+        color: white;
+        background: var(--accent);
+        border-color: var(--accent);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 28px;
+      }
+
+      .panel {
+        min-height: 190px;
+        padding: 20px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+      }
+
+      .panel h2 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        line-height: 1.2;
+      }
+
+      .panel p,
+      .panel li {
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      .panel ul {
+        margin: 12px 0 0;
+        padding-left: 18px;
+      }
+
+      code {
+        display: block;
+        margin-top: 12px;
+        padding: 12px;
+        overflow-x: auto;
+        border: 1px solid #d8e6ee;
+        background: #fbfdff;
+        color: #213242;
+        font-size: 13px;
+        white-space: pre;
+      }
+
+      .footer {
+        margin-top: 28px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 820px) {
+        .hero,
+        .grid {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 48px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Renaissance Field Lite / Band of Agents / Track 3</p>
+          <h1>QUADRO CSI</h1>
+          <p class="lede">
+            Consent-aware multi-agent review for regulated customer escalations:
+            source-backed evidence, policy gates, partner model readouts, and an
+            audit-ready decision packet.
+          </p>
+          <div class="actions">
+            <a class="button primary" href="https://github.com/renaissancefieldlite/quadro-csi">GitHub Repository</a>
+            <a class="button" href="docs/public/JUDGES_OVERVIEW.md">Judges Overview</a>
+            <a class="button" href="docs/public/SUBMISSION_DEMO_PROOF.md">Integrated Proof</a>
+            <a class="button" href="docs/public/quadro_csi_submission_deck.pptx">Slide Deck</a>
+          </div>
+        </div>
+        <img class="cover" src="app/static/assets/quadro-cover.png" alt="Quadro CSI cover graphic" />
+      </section>
+
+      <section class="grid" aria-label="submission summary">
+        <article class="panel">
+          <h2>What It Does</h2>
+          <p>
+            Quadro routes customer review work through four specialized agents:
+            intake, evidence, policy risk, and decision packet. Each handoff is
+            written as review evidence instead of hidden prompt chatter.
+          </p>
+        </article>
+        <article class="panel">
+          <h2>How To Run</h2>
+          <p>Clone the repo, install the package, launch the local app, then open the review workspace.</p>
+          <code>python3 -m venv .venv
+.venv/bin/pip install -e .
+.venv/bin/python -m quadro.server</code>
+        </article>
+        <article class="panel">
+          <h2>Verification</h2>
+          <ul>
+            <li>20 unit tests passing.</li>
+            <li>9 document sets pass expected gates.</li>
+            <li>Band, Featherless, and AI/ML API integration captured.</li>
+            <li>Public boundary check passes before publish.</li>
+          </ul>
+        </article>
+      </section>
+
+      <p class="footer">
+        Quadro CSI is a public-safe hackathon build. Private Golden Field Lite / Golden Mark internals,
+        raw captures, API keys, and local audit files are not included in this repository.
+      </p>
+    </main>
+  </body>
+</html>
