@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quadro</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="topbar">
+        <div class="brand-mark" aria-hidden="true">
+          <span></span>
+        </div>
+        <div class="brand-copy">
+          <div class="rail-line">
+            <p class="eyebrow">Renaissance Field Lite / Band of Agents</p>
+            <p class="rail-code">// Track 3 · Customer Signal Intelligence</p>
+          </div>
+          <h1>Quadro</h1>
+          <p class="subhead">
+            Regulated customer review workspace with source documents, consent gates,
+            visible agent handoffs, and audit-state decisions.
+          </p>
+        </div>
+        <figure class="brand-visual" aria-label="Quadro logo graphic">
+          <img
+            src="/assets/quadro-cover.png"
+            alt="Quadro consent-aware multi-agent review logo"
+          />
+        </figure>
+      </section>
+
+      <section class="room-layout" aria-label="Quadro room">
+        <aside class="panel agent-rail">
+          <div class="panel-title">
+            <span>Review Chain</span>
+            <strong>4</strong>
+          </div>
+          <div class="agent-list" id="agent-list">
+            <article class="agent-card active" data-agent="QuadroIntake">
+              <span>QCI</span>
+              <div>
+                <strong>Customer Intake</strong>
+                <small>captures request, consent, and owner</small>
+              </div>
+            </article>
+            <article class="agent-card" data-agent="QuadroEvidence">
+              <span>QES</span>
+              <div>
+                <strong>Evidence Spine</strong>
+                <small>finds source-backed support and gaps</small>
+              </div>
+            </article>
+            <article class="agent-card" data-agent="QuadroPolicy">
+              <span>QPR</span>
+              <div>
+                <strong>Policy / Risk</strong>
+                <small>checks consent, policy, and blockers</small>
+              </div>
+            </article>
+            <article class="agent-card" data-agent="QuadroDecision">
+              <span>QDP</span>
+              <div>
+                <strong>Decision Packet</strong>
+                <small>returns approve, say no, or need more info</small>
+              </div>
+            </article>
+          </div>
+          <div class="band-proof">
+            <span class="signal-dot"></span>
+            <div>
+              <strong>Band publish target</strong>
+              <small>d526bd08-bef8-44dc-bbf8-e216e4d2c57f</small>
+            </div>
+          </div>
+        </aside>
+
+        <section class="panel chat-panel">
+          <div class="chat-head">
+            <div>
+              <p class="eyebrow">Quadro Room</p>
+              <h2>Customer Review Workspace</h2>
+            </div>
+            <span id="status" class="status-pill">idle</span>
+          </div>
+
+          <div class="truth-banner">
+            <strong>Product audit</strong>
+            <span>Customer review is the default. Submission-readiness sources stay out of normal reviews unless deliberately selected.</span>
+          </div>
+
+          <div id="chat-feed" class="chat-feed" aria-live="polite"></div>
+
+          <form id="composer" class="composer">
+            <div class="document-dock">
+              <label class="field-label" for="prompt">Ask or Review</label>
+              <textarea
+                id="prompt"
+                name="prompt"
+                rows="6"
+                placeholder="Ask Quadro a question, or paste customer source material with a decision request. Example: Task: Can we approve this refund?"
+              ></textarea>
+              <label class="field-label" for="document-file">Attach Files</label>
+              <input id="document-file" type="file" accept=".txt,.md,.csv,.json,.log" multiple />
+              <div id="document-summary" class="document-summary">Ask a question, or paste source material and a decision request.</div>
+            </div>
+            <div class="composer-actions">
+              <button id="run-workflow" type="submit">Send</button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="panel decision-panel">
+          <div class="panel-title">
+            <span>Decision State</span>
+            <strong id="decision-gate">waiting</strong>
+          </div>
+          <dl class="metric-grid">
+            <div>
+              <dt>Consent</dt>
+              <dd id="metric-consent">rev 0</dd>
+            </div>
+            <div>
+              <dt>Evidence</dt>
+              <dd id="metric-evidence">0</dd>
+            </div>
+            <div>
+              <dt>Risk</dt>
+              <dd id="metric-risk">waiting</dd>
+            </div>
+            <div>
+              <dt>Band</dt>
+              <dd id="metric-band">waiting</dd>
+            </div>
+          </dl>
+          <div class="decision-copy">
+            <h3>Recommendation</h3>
+            <p id="recommendation">No packet generated in this view yet.</p>
+          </div>
+          <ol class="handoff-list" id="handoff-list">
+            <li class="current">Intake</li>
+            <li>Evidence</li>
+            <li>Policy</li>
+            <li>Decision</li>
+          </ol>
+        </aside>
+      </section>
+
+      <section class="panel stack-panel">
+        <div class="output-head">
+          <h2>Runtime / Adapter Stack</h2>
+          <button id="refresh-stack" type="button">Refresh</button>
+        </div>
+        <div id="stack-list" class="stack-list"></div>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

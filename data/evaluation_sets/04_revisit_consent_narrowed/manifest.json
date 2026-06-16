@@ -1,0 +1,94 @@
+{
+  "id": "04_revisit_consent_narrowed",
+  "title": "Pass after revisit: consent narrowed and rerouted",
+  "description": "Dataset where consent changes mid-workflow, requiring the agents to rerun evidence and policy before final signoff.",
+  "track": "Track 3 - regulated customer escalation",
+  "operator_message": "Run a consent-aware review after the customer narrows the allowed evidence scope.",
+  "revisit": true,
+  "case_overrides": {
+    "title": "Consent narrowed during escalation review",
+    "requester": "Customer Owner",
+    "business_goal": "Demonstrate a consent revision that causes the agents to rerun evidence, policy, and decision state.",
+    "requested_action": "Approve only the scoped next step after consent is narrowed.",
+    "consent": {
+      "status": "granted",
+      "actor": "Customer Account Admin",
+      "scope": [
+        "customer_document",
+        "consent_record",
+        "approval_policy"
+      ],
+      "constraints": [
+        "use only public incident summary and the signed approval rule",
+        "exclude private customer telemetry after revision"
+      ],
+      "reason": "initial broader review authorization"
+    },
+    "open_questions": [],
+    "evidence_queries": [
+      {
+        "query": "revisitconsent2026",
+        "scope_tags": [
+          "consent_record"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "revisitpolicy2026",
+        "scope_tags": [
+          "approval_policy"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "revisitincident2026",
+        "scope_tags": [
+          "customer_document"
+        ],
+        "limit": 2
+      }
+    ],
+    "revisit_consent": {
+      "reason": "customer narrowed scope to public incident summary and approval policy only; private telemetry is excluded",
+      "new_scope": [
+        "customer_document",
+        "consent_record",
+        "approval_policy"
+      ]
+    }
+  },
+  "documents": [
+    {
+      "path": "documents/revised_consent.md",
+      "title": "Revised Consent Ledger",
+      "kind": "document",
+      "scope_tags": [
+        "consent_record"
+      ]
+    },
+    {
+      "path": "documents/escalation_approval_rule.md",
+      "title": "Escalation Approval Rule",
+      "kind": "policy",
+      "scope_tags": [
+        "approval_policy"
+      ]
+    },
+    {
+      "path": "data/public_incident_summary.json",
+      "title": "Public Incident Summary",
+      "kind": "json",
+      "scope_tags": [
+        "customer_document"
+      ]
+    }
+  ],
+  "expected": {
+    "outcome": "APPROVE",
+    "gate": "ready_for_human_signoff",
+    "recommendation": "approved_for_scoped_next_step",
+    "risk_level": "medium",
+    "requires_revision_history": true,
+    "minimum_evidence_items": 2
+  }
+}

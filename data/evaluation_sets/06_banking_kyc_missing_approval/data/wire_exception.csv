@@ -1,0 +1,2 @@
+reference,wire_id,amount_usd,country_risk,kyc_exception_requested,approval_attached
+bankwire2026,WIRE-7721,48000,medium,true,false

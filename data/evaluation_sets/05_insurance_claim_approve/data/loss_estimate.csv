@@ -1,0 +1,2 @@
+reference,claim_id,covered_event,estimated_loss_usd,deductible_usd,recommended_payout_usd,notes
+insloss2026,CLM-8841,wind_damage,1840,500,1340,"Damage type is covered under current policy language."

@@ -1,0 +1,7 @@
+{
+  "reference": "revisitincident2026",
+  "incident_id": "INC-2026-05-31-A",
+  "visibility": "public_status_summary",
+  "private_telemetry_included": false,
+  "summary": "Public status note confirms degraded service during the approved window without customer-private telemetry."
+}

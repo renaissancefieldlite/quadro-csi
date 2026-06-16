@@ -1,0 +1,23 @@
+quadro_intake:
+  name: "Quadro Customer Intake"
+  role: "customer_intake"
+  agent_id: "<quadro-intake-agent-uuid>"
+  api_key: "<quadro-intake-api-key>"
+
+quadro_evidence:
+  name: "Quadro Evidence Spine"
+  role: "evidence_spine"
+  agent_id: "<quadro-evidence-agent-uuid>"
+  api_key: "<quadro-evidence-api-key>"
+
+quadro_policy:
+  name: "Quadro Policy Risk"
+  role: "policy_risk"
+  agent_id: "<quadro-policy-agent-uuid>"
+  api_key: "<quadro-policy-api-key>"
+
+quadro_decision:
+  name: "Quadro Decision Packet"
+  role: "decision_packet"
+  agent_id: "<quadro-decision-agent-uuid>"
+  api_key: "<quadro-decision-api-key>"

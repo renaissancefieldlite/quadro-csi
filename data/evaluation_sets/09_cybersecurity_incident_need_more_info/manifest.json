@@ -1,0 +1,82 @@
+{
+  "id": "09_cybersecurity_incident_need_more_info",
+  "title": "Cybersecurity: need more info before disclosure",
+  "description": "Cybersecurity incident dataset where incident evidence exists but required disclosure approval is missing.",
+  "track": "Track 3 - compliance, risk, or cybersecurity investigation workflows",
+  "operator_message": "Review the cybersecurity incident dataset and decide whether the disclosure notice can be sent.",
+  "revisit": false,
+  "case_overrides": {
+    "title": "Cybersecurity disclosure readiness review",
+    "requester": "Security Operations",
+    "business_goal": "Prevent external disclosure before approval evidence is attached.",
+    "requested_action": "Decide whether the disclosure notice can be sent.",
+    "consent": {
+      "status": "granted",
+      "actor": "Incident Commander",
+      "scope": [
+        "customer_document",
+        "consent_record",
+        "approval_policy"
+      ],
+      "constraints": [
+        "use only incident summary, disclosure checklist, and approval evidence",
+        "do not expose raw indicators beyond the approved packet"
+      ],
+      "reason": "incident commander authorized disclosure readiness review"
+    },
+    "open_questions": [
+      "Where is the legal/compliance approval for external notice?"
+    ],
+    "evidence_queries": [
+      {
+        "query": "cyberauth2026",
+        "scope_tags": [
+          "consent_record"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "cyberincident2026",
+        "scope_tags": [
+          "customer_document"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "cyberapproval2026",
+        "scope_tags": [
+          "approval_policy"
+        ],
+        "limit": 2
+      }
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/incident_commander_authorization.md",
+      "title": "Incident Commander Authorization",
+      "kind": "document",
+      "scope_tags": [
+        "consent_record"
+      ]
+    },
+    {
+      "path": "data/incident_summary.log",
+      "title": "Incident Summary Log",
+      "kind": "log",
+      "scope_tags": [
+        "customer_document"
+      ]
+    }
+  ],
+  "expected": {
+    "outcome": "NEED_MORE_INFO",
+    "gate": "blocked_until_evidence_or_consent_updated",
+    "recommendation": "collect_missing_evidence_or_update_consent",
+    "risk_level": "high",
+    "blockers_contain": [
+      "missing evidence: approval policy"
+    ],
+    "minimum_evidence_items": 2
+  }
+}

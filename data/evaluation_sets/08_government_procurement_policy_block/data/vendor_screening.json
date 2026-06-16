@@ -1,0 +1,8 @@
+{
+  "reference": "govvendor2026 quadrodeny2026",
+  "vendor_id": "VEND-2044",
+  "screening_result": "barred_vendor",
+  "sanctions_match": true,
+  "award_recommendation": "must_not_proceed",
+  "notes": "Vendor screen returns a prohibited vendor / sanctions match."
+}

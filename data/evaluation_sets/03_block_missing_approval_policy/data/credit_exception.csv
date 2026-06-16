@@ -1,0 +1,2 @@
+reference,ticket_id,invoice_id,requested_credit_usd,submitted_approval_policy,notes
+missingfinancial2026,RFL-3009,INV-5512,2200,false,"Credit request includes invoice and outage references, but no approval matrix is attached."

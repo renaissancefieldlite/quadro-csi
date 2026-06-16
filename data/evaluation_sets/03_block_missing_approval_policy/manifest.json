@@ -1,0 +1,91 @@
+{
+  "id": "03_block_missing_approval_policy",
+  "title": "Block: financial approval policy missing",
+  "description": "Dataset for a financial exception where consent and invoice data exist but approval policy evidence is absent.",
+  "track": "Track 3 - regulated customer escalation",
+  "operator_message": "Review the enterprise credit exception dataset and decide if it can go to signoff.",
+  "revisit": false,
+  "case_overrides": {
+    "title": "Enterprise credit exception with missing approval policy",
+    "requester": "Renewals Manager",
+    "business_goal": "Stop financial exceptions that lack required approval-policy evidence.",
+    "requested_action": "Decide whether the credit exception can proceed.",
+    "consent": {
+      "status": "granted",
+      "actor": "Customer Account Admin",
+      "scope": [
+        "customer_document",
+        "consent_record",
+        "financial_terms",
+        "approval_policy"
+      ],
+      "constraints": [
+        "financial terms may be reviewed only for this renewal dispute",
+        "approval authority must be attached before signoff"
+      ],
+      "reason": "customer authorized renewal dispute review"
+    },
+    "open_questions": [
+      "Which approval matrix controls this exception?"
+    ],
+    "evidence_queries": [
+      {
+        "query": "missingconsent2026",
+        "scope_tags": [
+          "consent_record"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "missingfinancial2026",
+        "scope_tags": [
+          "financial_terms"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "missingapproval2026",
+        "scope_tags": [
+          "approval_policy"
+        ],
+        "limit": 2
+      }
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/renewal_dispute_consent.md",
+      "title": "Renewal Dispute Consent",
+      "kind": "document",
+      "scope_tags": [
+        "consent_record"
+      ]
+    },
+    {
+      "path": "data/credit_exception.csv",
+      "title": "Credit Exception Data",
+      "kind": "csv",
+      "scope_tags": [
+        "financial_terms"
+      ]
+    },
+    {
+      "path": "data/outage_timeline.log",
+      "title": "Outage Timeline Log",
+      "kind": "log",
+      "scope_tags": [
+        "financial_terms"
+      ]
+    }
+  ],
+  "expected": {
+    "outcome": "NEED_MORE_INFO",
+    "gate": "blocked_until_evidence_or_consent_updated",
+    "recommendation": "collect_missing_evidence_or_update_consent",
+    "risk_level": "high",
+    "blockers_contain": [
+      "missing evidence: approval policy"
+    ],
+    "minimum_evidence_items": 2
+  }
+}

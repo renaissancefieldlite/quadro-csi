@@ -1,0 +1,26 @@
+[project]
+name = "quadro-band-agents"
+version = "0.1.0"
+description = "Quadro: consent-aware multi-agent workflow for the Band of Agents hackathon"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+band = [
+    "band-sdk[langgraph]",
+    "python-dotenv",
+    "langchain-openai",
+]
+aimlapi = [
+    "python-dotenv",
+]
+featherless = [
+    "python-dotenv",
+]
+
+[project.scripts]
+quadro-demo = "quadro.demo:main"
+quadro-server = "quadro.server:main"
+
+[tool.ruff]
+line-length = 88

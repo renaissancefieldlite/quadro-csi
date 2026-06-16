@@ -1,0 +1,72 @@
+{
+  "id": "08_government_procurement_policy_block",
+  "title": "Government policy: say no for barred vendor",
+  "description": "Government procurement dataset where a vendor policy screen produces a hard stop.",
+  "track": "Track 3 - compliance, risk, and public-sector approval workflows",
+  "operator_message": "Review the procurement dataset and decide whether the vendor award can proceed.",
+  "revisit": false,
+  "case_overrides": {
+    "title": "Public-sector procurement vendor screen",
+    "requester": "Procurement Operations",
+    "business_goal": "Stop an award when the vendor screen shows a policy prohibition.",
+    "requested_action": "Decide whether the vendor award can proceed.",
+    "consent": {
+      "status": "granted",
+      "actor": "Procurement Owner",
+      "scope": [
+        "customer_document",
+        "approval_policy"
+      ],
+      "constraints": [
+        "use only vendor screening record and procurement policy",
+        "route hard-stop findings to procurement counsel"
+      ],
+      "reason": "procurement owner authorized vendor eligibility review"
+    },
+    "open_questions": [],
+    "evidence_queries": [
+      {
+        "query": "govvendor2026 quadrodeny2026",
+        "scope_tags": [
+          "customer_document"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "govpolicy2026 quadrodeny2026",
+        "scope_tags": [
+          "approval_policy"
+        ],
+        "limit": 2
+      }
+    ]
+  },
+  "documents": [
+    {
+      "path": "data/vendor_screening.json",
+      "title": "Vendor Screening Data",
+      "kind": "json",
+      "scope_tags": [
+        "customer_document"
+      ]
+    },
+    {
+      "path": "documents/procurement_policy.md",
+      "title": "Procurement Eligibility Policy",
+      "kind": "policy",
+      "scope_tags": [
+        "approval_policy"
+      ]
+    }
+  ],
+  "expected": {
+    "outcome": "SAY_NO",
+    "gate": "stopped_policy_prohibition",
+    "recommendation": "do_not_proceed_policy_block",
+    "risk_level": "high",
+    "blockers_contain": [
+      "policy prohibition"
+    ],
+    "minimum_evidence_items": 2
+  }
+}

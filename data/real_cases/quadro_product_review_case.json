@@ -1,0 +1,30 @@
+{
+  "title": "Customer review decision packet",
+  "requester": "Customer Owner",
+  "business_goal": "Review customer-provided source material, preserve consent state, check evidence and policy gates, and produce an audit-ready decision.",
+  "requested_action": "Review the attached source material and decide whether the requested action can proceed.",
+  "consent": {
+    "status": "granted",
+    "actor": "Customer Owner",
+    "scope": [
+      "customer_document"
+    ],
+    "constraints": [
+      "use only the submitted review packet and attached files",
+      "do not approve if consent is revoked",
+      "do not approve if required approval evidence is missing",
+      "route blockers to the workflow owner"
+    ],
+    "reason": "customer owner submitted a review packet"
+  },
+  "open_questions": [],
+  "source_packets": [],
+  "evidence_queries": [],
+  "revisit_consent": {
+    "reason": "Customer owner narrowed the allowed scope and requested re-review before signoff.",
+    "new_scope": [
+      "customer_document",
+      "consent_record"
+    ]
+  }
+}

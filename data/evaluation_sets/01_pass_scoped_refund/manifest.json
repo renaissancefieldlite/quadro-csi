@@ -1,0 +1,94 @@
+{
+  "id": "01_pass_scoped_refund",
+  "title": "Pass: scoped refund review with consent and approval policy",
+  "description": "Dataset for a customer refund escalation where consent, financial evidence, and approval policy are present.",
+  "track": "Track 3 - regulated customer escalation",
+  "operator_message": "Review the scoped refund escalation dataset and decide whether it is ready for human signoff.",
+  "revisit": false,
+  "case_overrides": {
+    "title": "Scoped refund escalation review",
+    "requester": "Customer Success Lead",
+    "business_goal": "Decide whether a customer refund exception can move to human signoff without exposing data outside consent.",
+    "requested_action": "Approve a scoped refund next step if consent, financial evidence, and approval policy are present.",
+    "consent": {
+      "status": "granted",
+      "actor": "Customer Account Admin",
+      "scope": [
+        "customer_document",
+        "consent_record",
+        "financial_terms",
+        "approval_policy"
+      ],
+      "constraints": [
+        "use only ticket, invoice, approval, and service-log material",
+        "do not export unrelated customer data"
+      ],
+      "reason": "customer admin authorized scoped review"
+    },
+    "open_questions": [],
+    "evidence_queries": [
+      {
+        "query": "passconsent2026",
+        "scope_tags": [
+          "consent_record"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "passfinancial2026",
+        "scope_tags": [
+          "financial_terms"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "passapproval2026",
+        "scope_tags": [
+          "approval_policy"
+        ],
+        "limit": 2
+      }
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/consent_record.md",
+      "title": "Customer Consent Ledger",
+      "kind": "document",
+      "scope_tags": [
+        "consent_record"
+      ]
+    },
+    {
+      "path": "documents/refund_ticket.md",
+      "title": "Refund Escalation Ticket",
+      "kind": "ticket",
+      "scope_tags": [
+        "financial_terms"
+      ]
+    },
+    {
+      "path": "data/refund_invoice.csv",
+      "title": "Refund Invoice Data",
+      "kind": "csv",
+      "scope_tags": [
+        "financial_terms"
+      ]
+    },
+    {
+      "path": "documents/refund_approval_policy.md",
+      "title": "Refund Approval Policy",
+      "kind": "policy",
+      "scope_tags": [
+        "approval_policy"
+      ]
+    }
+  ],
+  "expected": {
+    "outcome": "APPROVE",
+    "gate": "ready_for_human_signoff",
+    "recommendation": "approved_for_scoped_next_step",
+    "risk_level": "medium",
+    "minimum_evidence_items": 3
+  }
+}

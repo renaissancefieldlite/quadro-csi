@@ -1,0 +1,2 @@
+reference,invoice_id,account_segment,disputed_line_amount_usd,requested_credit_usd,approval_threshold_usd,notes
+passfinancial2026,INV-4419,Growth,249,249,500,"Requested credit is below manager approval threshold."

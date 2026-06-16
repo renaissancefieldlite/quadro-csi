@@ -1,0 +1,91 @@
+{
+  "id": "06_banking_kyc_missing_approval",
+  "title": "Banking: need more info for wire exception",
+  "description": "Banking dataset where transaction and customer consent exist, but required KYC approval evidence is missing.",
+  "track": "Track 3 - financial services approval workflows",
+  "operator_message": "Review the banking wire exception dataset and decide whether the transfer can proceed.",
+  "revisit": false,
+  "case_overrides": {
+    "title": "Banking wire exception review",
+    "requester": "Treasury Operations",
+    "business_goal": "Prevent a wire exception from proceeding without required KYC approval evidence.",
+    "requested_action": "Decide whether the transfer exception can proceed.",
+    "consent": {
+      "status": "granted",
+      "actor": "Corporate Account Admin",
+      "scope": [
+        "customer_document",
+        "consent_record",
+        "financial_terms",
+        "approval_policy"
+      ],
+      "constraints": [
+        "use only wire request, account authorization, and KYC approval evidence",
+        "do not expose unrelated account transactions"
+      ],
+      "reason": "account admin authorized wire exception review"
+    },
+    "open_questions": [
+      "Where is the KYC exception approval?"
+    ],
+    "evidence_queries": [
+      {
+        "query": "bankconsent2026",
+        "scope_tags": [
+          "consent_record"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "bankwire2026",
+        "scope_tags": [
+          "financial_terms"
+        ],
+        "limit": 2
+      },
+      {
+        "query": "bankapproval2026",
+        "scope_tags": [
+          "approval_policy"
+        ],
+        "limit": 2
+      }
+    ]
+  },
+  "documents": [
+    {
+      "path": "documents/account_authorization.md",
+      "title": "Account Authorization",
+      "kind": "document",
+      "scope_tags": [
+        "consent_record"
+      ]
+    },
+    {
+      "path": "data/wire_exception.csv",
+      "title": "Wire Exception Data",
+      "kind": "csv",
+      "scope_tags": [
+        "financial_terms"
+      ]
+    },
+    {
+      "path": "data/kyc_review.log",
+      "title": "KYC Review Log",
+      "kind": "log",
+      "scope_tags": [
+        "financial_terms"
+      ]
+    }
+  ],
+  "expected": {
+    "outcome": "NEED_MORE_INFO",
+    "gate": "blocked_until_evidence_or_consent_updated",
+    "recommendation": "collect_missing_evidence_or_update_consent",
+    "risk_level": "high",
+    "blockers_contain": [
+      "missing evidence: approval policy"
+    ],
+    "minimum_evidence_items": 2
+  }
+}
