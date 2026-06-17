@@ -132,6 +132,88 @@
         padding-left: 18px;
       }
 
+      .video-section {
+        margin-top: 28px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+      }
+
+      .video-section h2 {
+        margin: 0 0 10px;
+        font-size: 24px;
+      }
+
+      .video-section p {
+        max-width: 860px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .video-frame {
+        width: 100%;
+        margin-top: 16px;
+        aspect-ratio: 16 / 9;
+        border: 1px solid #b8d6e4;
+        background: #071016;
+      }
+
+      .video-frame video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .condition-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+        margin-top: 18px;
+      }
+
+      .condition-card {
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.78);
+      }
+
+      .condition-card video {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #071016;
+      }
+
+      .condition-copy {
+        padding: 14px;
+      }
+
+      .condition-copy h3 {
+        margin: 0 0 6px;
+        font-size: 16px;
+      }
+
+      .condition-copy p {
+        margin: 0;
+        font-size: 14px;
+      }
+
+      .enterprise-cta {
+        margin-top: 28px;
+        padding: 22px;
+        border: 1px solid #8dcce4;
+        background: linear-gradient(135deg, rgba(244, 252, 255, 0.96), rgba(255, 255, 255, 0.92));
+      }
+
+      .enterprise-cta h2 {
+        margin: 0 0 10px;
+      }
+
+      .enterprise-cta p {
+        color: var(--muted);
+        max-width: 820px;
+      }
+
       code {
         display: block;
         margin-top: 12px;
@@ -154,7 +236,8 @@
 
       @media (max-width: 820px) {
         .hero,
-        .grid {
+        .grid,
+        .condition-grid {
           grid-template-columns: 1fr;
         }
 
@@ -210,6 +293,86 @@
             <li>Public boundary check passes before publish.</li>
           </ul>
         </article>
+      </section>
+
+      <section class="video-section" aria-label="submitted demo video">
+        <p class="eyebrow">Submitted demo</p>
+        <h2>Watch the Quadro CSI walkthrough</h2>
+        <p>
+          This is the demo video used for the Band of Agents submission. It explains the
+          review problem, the four-agent workflow, Band collaboration, acceptance coverage,
+          and the AI/ML API plus Featherless verifier lanes.
+        </p>
+        <div class="video-frame">
+          <video
+            controls
+            preload="metadata"
+            poster="docs/public/media/quadro_submission_demo_poster.jpg"
+            src="docs/public/media/quadro_submission_demo.mp4"
+          ></video>
+        </div>
+      </section>
+
+      <section class="video-section" aria-label="acceptance condition clips">
+        <p class="eyebrow">Acceptance clips</p>
+        <h2>Condition checks and outcomes</h2>
+        <p>
+          Each short clip is generated from the public-safe evaluation manifests and the
+          current acceptance runner. Together they show Quadro hitting approve, say no,
+          need more information, consent reroute, and hard policy-block conditions.
+        </p>
+        <div class="condition-grid">
+          <article class="condition-card">
+            <video controls preload="metadata" poster="docs/public/media/quadro_condition_approve_scoped_refund.jpg" src="docs/public/media/quadro_condition_approve_scoped_refund.mp4"></video>
+            <div class="condition-copy">
+              <h3>Approve: scoped refund</h3>
+              <p>Consent, refund evidence, and approval policy are present; Quadro moves to human signoff.</p>
+            </div>
+          </article>
+          <article class="condition-card">
+            <video controls preload="metadata" poster="docs/public/media/quadro_condition_say_no_revoked_consent.jpg" src="docs/public/media/quadro_condition_say_no_revoked_consent.mp4"></video>
+            <div class="condition-copy">
+              <h3>Say no: revoked consent</h3>
+              <p>Customer authorization is withdrawn before export; Quadro stops the workflow.</p>
+            </div>
+          </article>
+          <article class="condition-card">
+            <video controls preload="metadata" poster="docs/public/media/quadro_condition_need_more_info_missing_approval.jpg" src="docs/public/media/quadro_condition_need_more_info_missing_approval.mp4"></video>
+            <div class="condition-copy">
+              <h3>Need more info: missing approval</h3>
+              <p>Consent and financial evidence exist, but required approval authority is missing.</p>
+            </div>
+          </article>
+          <article class="condition-card">
+            <video controls preload="metadata" poster="docs/public/media/quadro_condition_approve_after_consent_reroute.jpg" src="docs/public/media/quadro_condition_approve_after_consent_reroute.mp4"></video>
+            <div class="condition-copy">
+              <h3>Approve after consent reroute</h3>
+              <p>Consent narrows mid-workflow; Quadro reroutes evidence and policy before final signoff.</p>
+            </div>
+          </article>
+          <article class="condition-card">
+            <video controls preload="metadata" poster="docs/public/media/quadro_condition_say_no_policy_prohibition.jpg" src="docs/public/media/quadro_condition_say_no_policy_prohibition.mp4"></video>
+            <div class="condition-copy">
+              <h3>Say no: policy prohibition</h3>
+              <p>A public-sector vendor screen hits a hard procurement policy block.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="enterprise-cta" aria-label="enterprise licensing contact">
+        <p class="eyebrow">Enterprise licensing</p>
+        <h2>Book a Quadro CSI demo, licensing call, or purchase inquiry</h2>
+        <p>
+          Quadro can be adapted for regulated customer escalation, compliance review,
+          legal intake, procurement, insurance, finance, cybersecurity disclosure, and
+          internal approval workflows where consent state, evidence, and policy gates
+          must move together.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="mailto:info@renaissancefieldlite.com?subject=Quadro%20CSI%20enterprise%20demo%20or%20licensing%20inquiry">Contact Renaissance Field Lite</a>
+          <a class="button" href="docs/public/SUBMISSION_DEMO_PROOF.html">Review integrated proof</a>
+        </div>
       </section>
 
       <p class="footer">
