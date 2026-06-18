@@ -94,6 +94,18 @@
 
           <form id="composer" class="composer">
             <div class="document-dock">
+              <div class="dataset-loader">
+                <label class="field-label" for="dataset-select">Load Acceptance Set</label>
+                <div class="dataset-controls">
+                  <select id="dataset-select" name="dataset-select">
+                    <option value="">Manual review packet</option>
+                  </select>
+                  <button id="load-dataset" type="button">Load Set</button>
+                </div>
+                <div id="dataset-summary" class="dataset-summary">
+                  Optional: load one of Quadro's public-safe acceptance sets into this room.
+                </div>
+              </div>
               <label class="field-label" for="prompt">Ask or Review</label>
               <textarea
                 id="prompt"

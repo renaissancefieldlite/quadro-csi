@@ -3,6 +3,9 @@ const statusEl = document.querySelector("#status");
 const stackList = document.querySelector("#stack-list");
 const composer = document.querySelector("#composer");
 const promptEl = document.querySelector("#prompt");
+const datasetSelectEl = document.querySelector("#dataset-select");
+const loadDatasetButton = document.querySelector("#load-dataset");
+const datasetSummaryEl = document.querySelector("#dataset-summary");
 const documentFileEl = document.querySelector("#document-file");
 const documentSummaryEl = document.querySelector("#document-summary");
 const runButton = document.querySelector("#run-workflow");
@@ -13,6 +16,9 @@ const metricEvidence = document.querySelector("#metric-evidence");
 const metricRisk = document.querySelector("#metric-risk");
 const metricBand = document.querySelector("#metric-band");
 const handoffList = document.querySelector("#handoff-list");
+
+let loadedDataset = null;
+let loadedDatasetDocuments = [];
 
 const AGENTS = {
   HumanOwner: { label: "Customer Owner", initials: "CO", side: "user" },
@@ -96,10 +102,10 @@ async function runWorkflow(path) {
 }
 
 async function collectDocuments() {
-  const documents = [];
+  const documents = loadedDatasetDocuments.map((document) => ({ ...document }));
   const packet = promptEl.value.trim();
   const files = Array.from(documentFileEl.files || []);
-  if (packet && shouldTreatPromptAsDocument(packet, files.length)) {
+  if (!documents.length && packet && shouldTreatPromptAsDocument(packet, files.length)) {
     documents.push({ title: "Review Packet", body: packet });
   }
   for (const file of files) {
@@ -112,6 +118,12 @@ function renderPending(message) {
   seedFeed();
   const content = message || "Run the customer review.";
   const documentCount = stagedDocumentCount();
+  const datasetCard = loadedDataset
+    ? `<div class="mini-card">
+        <strong>Acceptance set</strong>
+        <span>${escapeHtml(loadedDataset.id)} -> expected ${escapeHtml(expectedLabel(loadedDataset))}</span>
+      </div>`
+    : "";
   feed.insertAdjacentHTML(
     "beforeend",
     `<article class="message user-message">
@@ -126,6 +138,7 @@ function renderPending(message) {
           <strong>Source package</strong>
           <span>${documentCount ? `${documentCount} source item${documentCount === 1 ? "" : "s"} attached` : "no source documents attached"}</span>
         </div>
+        ${datasetCard}
       </div>
     </article>`,
   );
@@ -632,10 +645,75 @@ async function refreshStack() {
     .join("");
 }
 
+async function loadDatasetList() {
+  if (!datasetSelectEl) {
+    return;
+  }
+  try {
+    const response = await fetch("/api/document-sets");
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    const payload = await response.json();
+    const options = (payload.document_sets || [])
+      .map((item) => {
+        const label = `${item.id} - ${humanize(item.title)} -> ${expectedLabel(item)}`;
+        return `<option value="${escapeHtml(item.id)}">${escapeHtml(label)}</option>`;
+      })
+      .join("");
+    datasetSelectEl.insertAdjacentHTML("beforeend", options);
+  } catch (error) {
+    datasetSummaryEl.textContent = `Acceptance sets unavailable: ${error.message}`;
+  }
+}
+
+async function loadSelectedDataset() {
+  const id = datasetSelectEl.value;
+  if (!id) {
+    clearLoadedDataset();
+    return;
+  }
+  loadDatasetButton.disabled = true;
+  datasetSummaryEl.textContent = "Loading acceptance set...";
+  try {
+    const response = await fetch(`/api/document-sets/${encodeURIComponent(id)}`);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    const pack = await response.json();
+    loadedDataset = pack;
+    loadedDatasetDocuments = Array.isArray(pack.documents) ? pack.documents : [];
+    promptEl.value = pack.operator_message || pack.case_overrides?.requested_action || pack.title || "";
+    datasetSummaryEl.innerHTML = `<strong>${escapeHtml(pack.title)}</strong> loaded: ${loadedDatasetDocuments.length} document${loadedDatasetDocuments.length === 1 ? "" : "s"}, expected ${escapeHtml(expectedLabel(pack))}.`;
+    documentFileEl.value = "";
+    updateDocumentSummary();
+  } catch (error) {
+    clearLoadedDataset();
+    datasetSummaryEl.textContent = `Could not load set: ${error.message}`;
+  } finally {
+    loadDatasetButton.disabled = false;
+  }
+}
+
+function clearLoadedDataset() {
+  loadedDataset = null;
+  loadedDatasetDocuments = [];
+  datasetSummaryEl.textContent = "Optional: load one of Quadro's public-safe acceptance sets into this room.";
+  updateDocumentSummary();
+}
+
+function expectedLabel(pack) {
+  const expected = pack.expected || {};
+  const outcome = humanizeOutcome(expected.outcome || "needs review");
+  const gate = expected.gate ? ` / ${humanize(expected.gate)}` : "";
+  return `${outcome}${gate}`;
+}
+
 function updateDocumentSummary() {
   const packetLength = promptEl.value.trim().length;
   const files = Array.from(documentFileEl.files || []);
-  if (!packetLength && !files.length) {
+  const datasetCount = loadedDatasetDocuments.length;
+  if (!packetLength && !files.length && !datasetCount) {
     documentSummaryEl.textContent = "Ask a question, or paste source material and a decision request.";
     return;
   }
@@ -644,24 +722,42 @@ function updateDocumentSummary() {
   const textSummary = packetLength
     ? `${textAsSource ? "source text" : "question"} ${packetLength.toLocaleString()} chars`
     : "";
-  documentSummaryEl.textContent = [textSummary, fileNames].filter(Boolean).join("; ");
+  const datasetSummary = datasetCount
+    ? `${datasetCount} documents loaded from ${loadedDataset.id}`
+    : "";
+  documentSummaryEl.textContent = [datasetSummary, textSummary, fileNames].filter(Boolean).join("; ");
 }
 
 function stagedDocumentCount() {
   const files = Array.from(documentFileEl.files || []);
-  return (shouldTreatPromptAsDocument(promptEl.value, files.length) ? 1 : 0) + files.length;
+  const promptDocument = loadedDatasetDocuments.length
+    ? 0
+    : shouldTreatPromptAsDocument(promptEl.value, files.length)
+      ? 1
+      : 0;
+  return loadedDatasetDocuments.length + promptDocument + files.length;
 }
 
 composer.addEventListener("submit", (event) => {
   event.preventDefault();
-  runWorkflow("/api/run-workflow/no-revisit");
+  const path = loadedDataset && loadedDataset.revisit
+    ? "/api/run-workflow"
+    : "/api/run-workflow/no-revisit";
+  runWorkflow(path);
 });
 
 promptEl.addEventListener("input", updateDocumentSummary);
 documentFileEl.addEventListener("change", updateDocumentSummary);
+datasetSelectEl.addEventListener("change", () => {
+  if (!datasetSelectEl.value) {
+    clearLoadedDataset();
+  }
+});
+loadDatasetButton.addEventListener("click", loadSelectedDataset);
 
 document.querySelector("#refresh-stack").addEventListener("click", refreshStack);
 
 seedFeed();
 updateDocumentSummary();
+loadDatasetList();
 refreshStack();

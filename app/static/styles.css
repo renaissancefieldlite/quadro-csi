@@ -44,7 +44,8 @@ body::before {
 
 button,
 textarea,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -68,6 +69,16 @@ button:hover {
 button:disabled {
   cursor: progress;
   opacity: 0.6;
+}
+
+select {
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 0 10px;
+  color: var(--ink);
+  background: #ffffff;
 }
 
 .shell {
@@ -721,6 +732,31 @@ h3 {
   margin-bottom: 12px;
 }
 
+.dataset-loader {
+  border: 1px solid rgba(31, 127, 163, 0.28);
+  border-radius: 8px;
+  padding: 10px;
+  background: linear-gradient(180deg, rgba(241, 250, 254, 0.92), rgba(255, 255, 255, 0.96));
+}
+
+.dataset-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+.dataset-summary {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.dataset-summary strong {
+  color: var(--ink);
+}
+
 .pack-row {
   display: flex;
   align-items: center;
@@ -1028,6 +1064,10 @@ h3 {
   .composer-actions {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .dataset-controls {
+    grid-template-columns: 1fr;
   }
 
   button {
