@@ -11,6 +11,47 @@ four agents coordinate through a shared room:
 - Policy Agent
 - Decision Agent
 
+## Judge Quickstart
+
+Run Quadro from the repository root. Do not copy one Python file into a separate
+interpreter; the demo imports the local `quadro/` package and loads document
+sets from `data/evaluation_sets/`.
+
+Core runnable path, no API keys required:
+
+```bash
+git clone https://github.com/renaissancefieldlite/quadro-csi.git
+cd quadro-csi
+python3 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python run_quadro_demo.py
+```
+
+Expected result:
+
+```text
+Quadro demo passed: all acceptance sets returned expected outcomes.
+```
+
+Launch the local UI:
+
+```bash
+.venv/bin/python -m quadro.server
+```
+
+Open:
+
+```text
+http://127.0.0.1:8867
+```
+
+In the UI, choose `Load Acceptance Set`, click `Load Set`, then click `Send`.
+The intake, evidence, policy, and decision agents will write the visible audit
+trail.
+
+More detail: [Run Quadro CSI](RUN_DEMO.md).
+
 The signature workflow is `Revisit Consent`. A human can reopen, narrow, or
 revoke consent after the workflow has started. Quadro then re-routes the room so
 the relevant agents re-check scope, evidence, policy, and the final decision
@@ -47,13 +88,13 @@ room log, SQLite/FTS evidence memory, JSONL audit, four Band remote agents,
 and a verified Band chat/event run.
 
 ```bash
-python3 scripts/run_quadro_workflow.py
+.venv/bin/python run_quadro_demo.py
 ```
 
 Optional local web preview:
 
 ```bash
-python3 -m quadro.server
+.venv/bin/python -m quadro.server
 ```
 
 Then open:
@@ -65,6 +106,7 @@ http://127.0.0.1:8867
 Live Band gate:
 
 ```bash
+.venv/bin/python -m pip install -r requirements-live.txt
 .venv/bin/python scripts/verify_band_live.py --json
 .venv/bin/python scripts/run_band_agents.py --live --create-chat --json
 ```

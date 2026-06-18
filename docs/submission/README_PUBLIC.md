@@ -37,14 +37,23 @@ Quadro includes public-safe regulated workflow packs that test specific gates:
 Run:
 
 ```bash
-.venv/bin/python scripts/run_document_sets.py
+git clone https://github.com/renaissancefieldlite/quadro-csi.git
+cd quadro-csi
+python3 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python run_quadro_demo.py
+```
+
+Expected result:
+
+```text
+Quadro demo passed: all acceptance sets returned expected outcomes.
 ```
 
 ## Local Demo
 
 ```bash
-python -m venv .venv
-.venv/bin/python -m pip install -e ".[band,aimlapi]"
 .venv/bin/python -m quadro.server
 ```
 
@@ -63,3 +72,11 @@ AI/ML API is optional and should be used as a verifier/explanation lane, not as
 the decision authority. Quadro's approval gates remain evidence and policy
 driven.
 
+Optional live Band, AI/ML API, and Featherless lanes:
+
+```bash
+.venv/bin/python -m pip install -r requirements-live.txt
+cp .env.example .env
+```
+
+Then configure only the provider keys being tested.

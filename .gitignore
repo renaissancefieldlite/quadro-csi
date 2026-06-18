@@ -14,6 +14,7 @@ submission_video/
 *.sqlite
 *.sqlite3
 *.asd
+*.egg-info/
 
 # Internal/operator planning docs are kept local and are not part of the public
 # hackathon repository. Publish sanitized docs from docs/public/ instead.

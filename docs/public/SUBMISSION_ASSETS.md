@@ -57,6 +57,26 @@ Branch: main
 Hosted submission hub: https://renaissancefieldlite.com/quadro-csi/
 ```
 
+## Judge Run Path
+
+Use the whole repository. Do not copy a single script into Python; the demo loads
+the local `quadro/` package and public-safe document sets.
+
+```bash
+git clone https://github.com/renaissancefieldlite/quadro-csi.git
+cd quadro-csi
+python3 -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python run_quadro_demo.py
+```
+
+Expected result:
+
+```text
+Quadro demo passed: all acceptance sets returned expected outcomes.
+```
+
 Before pushing, run the public gate:
 
 ```bash
