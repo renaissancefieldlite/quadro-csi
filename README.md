@@ -57,6 +57,29 @@ revoke consent after the workflow has started. Quadro then re-routes the room so
 the relevant agents re-check scope, evidence, policy, and the final decision
 packet instead of pretending the first pass is still valid.
 
+## GitLab Transcend Showcase
+
+Quadro also includes a GitLab Duo Agent Platform showcase layer for the GitLab
+Transcend Hackathon. The GitLab layer adapts the same audit chain to GitLab
+Orbit work items, issues, merge requests, agents, flows, and delivery decisions.
+
+Included files:
+
+- [Project agent instructions](AGENTS.md)
+- [Quadro Orbit Review skill](skills/quadro-orbit-review/SKILL.md)
+- [GitLab showcase submission notes](docs/gitlab_transcend/SHOWCASE_SUBMISSION.md)
+- [Devpost copy](docs/gitlab_transcend/DEVPOST_COPY.md)
+
+Where supported, use the GitLab Duo slash command:
+
+```text
+/quadro-orbit-review
+```
+
+The skill returns a plain-English audit packet with the decision, evidence used,
+missing evidence, policy/risk read, recommended next step, and human signoff
+requirement.
+
 ## Hackathon Fit
 
 Primary track: regulated and high-stakes workflows.

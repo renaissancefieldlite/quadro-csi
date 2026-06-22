@@ -17,11 +17,12 @@ submission_video/
 *.egg-info/
 
 # Internal/operator planning docs are kept local and are not part of the public
-# hackathon repository. Publish sanitized docs from docs/public/ instead.
-AGENTS.md
+# hackathon repository. Public-facing GitLab Duo instructions live in AGENTS.md.
 docs/*
 !docs/public/
 !docs/public/**
 !docs/submission/
 !docs/submission/**
+!docs/gitlab_transcend/
+!docs/gitlab_transcend/**
 data/real_cases/quadro_hackathon_readiness_case.json
