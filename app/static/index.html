@@ -7,6 +7,29 @@
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
+    <section id="demo-gate" class="demo-gate hidden" aria-label="Quadro private demo access">
+      <div class="demo-gate-card">
+        <p class="eyebrow">Renaissance Field Lite / Quadro CSI</p>
+        <h1>Private Pilot Demo</h1>
+        <p>
+          Enter the pilot access password to review the sample Quadro workspace.
+          This demo uses public-safe sample packets and allows two workflow runs
+          per browser session.
+        </p>
+        <form id="demo-login" class="demo-login">
+          <label class="field-label" for="demo-password">Access password</label>
+          <input
+            id="demo-password"
+            name="demo-password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Enter demo password"
+          />
+          <button type="submit">Open Demo</button>
+        </form>
+        <p id="demo-login-message" class="demo-login-message" aria-live="polite"></p>
+      </div>
+    </section>
     <main class="shell">
       <section class="topbar">
         <div class="brand-mark" aria-hidden="true">
@@ -21,6 +44,9 @@
           <p class="subhead">
             Regulated customer review workspace with source documents, consent gates,
             visible agent handoffs, and audit-state decisions.
+          </p>
+          <p id="demo-usage" class="demo-usage hidden">
+            Private demo: <strong>2</strong> workflow runs available.
           </p>
         </div>
         <figure class="brand-visual" aria-label="Quadro logo graphic">

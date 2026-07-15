@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: quadro-csi-private-demo
+    runtime: python
+    plan: free
+    buildCommand: "python3 -m pip install --upgrade pip && python3 -m pip install -r requirements.txt"
+    startCommand: "python3 -m quadro.server"
+    envVars:
+      - key: QUADRO_HOST
+        value: 0.0.0.0
+      - key: QUADRO_DEMO_GATE
+        value: "1"
+      - key: QUADRO_DEMO_PASSWORD
+        sync: false
+      - key: QUADRO_DEMO_MAX_USES
+        value: "2"

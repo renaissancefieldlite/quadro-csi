@@ -16,9 +16,15 @@ const metricEvidence = document.querySelector("#metric-evidence");
 const metricRisk = document.querySelector("#metric-risk");
 const metricBand = document.querySelector("#metric-band");
 const handoffList = document.querySelector("#handoff-list");
+const demoGate = document.querySelector("#demo-gate");
+const demoLogin = document.querySelector("#demo-login");
+const demoPassword = document.querySelector("#demo-password");
+const demoLoginMessage = document.querySelector("#demo-login-message");
+const demoUsage = document.querySelector("#demo-usage");
 
 let loadedDataset = null;
 let loadedDatasetDocuments = [];
+let demoSession = { gate_enabled: false, authenticated: true, remaining: 2, max_uses: 2 };
 
 const AGENTS = {
   HumanOwner: { label: "Customer Owner", initials: "CO", side: "user" },
@@ -40,7 +46,7 @@ function escapeHtml(value) {
 function setBusy(isBusy) {
   statusEl.textContent = isBusy ? "running" : "idle";
   statusEl.classList.toggle("running", isBusy);
-  runButton.disabled = isBusy;
+  runButton.disabled = isBusy || demoRunsExhausted();
 }
 
 function seedFeed() {
@@ -63,6 +69,11 @@ function seedFeed() {
 }
 
 async function runWorkflow(path) {
+  if (demoRunsExhausted()) {
+    statusEl.textContent = "demo limit reached";
+    updateDemoUsage(demoSession);
+    return;
+  }
   const message = promptEl.value.trim();
   setBusy(true);
   renderPending(message);
@@ -75,11 +86,24 @@ async function runWorkflow(path) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
+    const payload = await response.json();
+    if (!response.ok && payload.error === "demo_use_limit_reached") {
+      demoSession = payload.demo_session || { ...demoSession, remaining: 0 };
+      updateDemoUsage(demoSession);
+      throw new Error("This private demo link has reached its workflow run limit.");
+    }
+    if (!response.ok && payload.error === "demo_password_required") {
+      showDemoGate("Enter the demo password again to continue.");
+      throw new Error("Demo password required.");
+    }
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
-    const payload = await response.json();
     renderWorkflow(payload);
+    if (payload.demo_session) {
+      demoSession = payload.demo_session;
+      updateDemoUsage(demoSession);
+    }
     promptEl.value = "";
     statusEl.textContent = "complete";
   } catch (error) {
@@ -96,7 +120,7 @@ async function runWorkflow(path) {
     statusEl.textContent = "blocked";
   } finally {
     statusEl.classList.remove("running");
-    runButton.disabled = false;
+    runButton.disabled = demoRunsExhausted();
     feed.scrollTop = feed.scrollHeight;
   }
 }
@@ -757,7 +781,96 @@ loadDatasetButton.addEventListener("click", loadSelectedDataset);
 
 document.querySelector("#refresh-stack").addEventListener("click", refreshStack);
 
+function demoRunsExhausted() {
+  return demoSession.gate_enabled && Number(demoSession.remaining || 0) <= 0;
+}
+
+function showDemoGate(message = "") {
+  if (!demoGate) {
+    return;
+  }
+  demoGate.classList.remove("hidden");
+  if (demoLoginMessage) {
+    demoLoginMessage.textContent = message;
+  }
+  if (demoPassword) {
+    demoPassword.focus();
+  }
+}
+
+function hideDemoGate() {
+  if (demoGate) {
+    demoGate.classList.add("hidden");
+  }
+}
+
+function updateDemoUsage(session) {
+  demoSession = session || demoSession;
+  if (!demoUsage) {
+    return;
+  }
+  if (!demoSession.gate_enabled) {
+    demoUsage.classList.add("hidden");
+    runButton.disabled = false;
+    return;
+  }
+  const remaining = Number(demoSession.remaining || 0);
+  const maxUses = Number(demoSession.max_uses || 2);
+  demoUsage.classList.remove("hidden");
+  demoUsage.innerHTML = `Private demo: <strong>${remaining}</strong> of ${maxUses} workflow runs remaining.`;
+  runButton.disabled = remaining <= 0;
+  if (remaining <= 0) {
+    statusEl.textContent = "demo limit reached";
+  }
+}
+
+async function initDemoGate() {
+  try {
+    const response = await fetch("/api/demo-session");
+    demoSession = await response.json();
+    updateDemoUsage(demoSession);
+    if (demoSession.gate_enabled && !demoSession.authenticated) {
+      showDemoGate();
+      return false;
+    }
+    hideDemoGate();
+    return true;
+  } catch (error) {
+    showDemoGate(`Could not check demo access: ${error.message}`);
+    return false;
+  }
+}
+
+if (demoLogin) {
+  demoLogin.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    demoLoginMessage.textContent = "Checking access...";
+    try {
+      const response = await fetch("/api/demo-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: demoPassword.value }),
+      });
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload.error === "incorrect_password" ? "Incorrect password." : `HTTP ${response.status}`);
+      }
+      demoSession = payload;
+      updateDemoUsage(demoSession);
+      hideDemoGate();
+      await loadDatasetList();
+      await refreshStack();
+    } catch (error) {
+      demoLoginMessage.textContent = error.message;
+    }
+  });
+}
+
 seedFeed();
 updateDocumentSummary();
-loadDatasetList();
-refreshStack();
+initDemoGate().then((ready) => {
+  if (ready) {
+    loadDatasetList();
+    refreshStack();
+  }
+});
