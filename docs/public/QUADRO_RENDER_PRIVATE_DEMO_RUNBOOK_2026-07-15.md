@@ -22,6 +22,12 @@ Render blueprint:
 render.yaml
 ```
 
+Live Render URL:
+
+```text
+https://quadro-csi-private-demo.onrender.com
+```
+
 Environment:
 
 ```text
@@ -44,7 +50,7 @@ Send this after the Render URL exists:
 
 ```text
 Private Quadro CSI pilot demo:
-<RENDER_URL>
+https://quadro-csi-private-demo.onrender.com
 
 Password:
 rfl123
@@ -100,3 +106,18 @@ http://127.0.0.1:8868
   - `/api/demo-login` accepted the approved password.
   - authenticated `/api/status` returned `ok: true`.
   - one workflow run completed and decremented the session from `2` runs remaining to `1`.
+
+## 2026-07-15 Render Verification Receipt
+
+- GitHub commit deployed by Render: `5ddc6b9`.
+- Render Blueprint ID: `exs-d9c06imcjfls738pjlfg`.
+- Render Service ID: `srv-d9c06s6cjfls738pk5o0`.
+- Render dashboard showed the deploy as `live`.
+- Live service URL:
+  - `https://quadro-csi-private-demo.onrender.com`
+- Live smoke checks passed:
+  - `/api/demo-session` returned `200`, `gate_enabled: true`, `authenticated: false`, `remaining: 2`.
+  - unauthenticated `/api/status` returned `401` with `demo_password_required`.
+  - `/api/demo-login` accepted the approved password and returned `authenticated: true`.
+  - authenticated `/api/status` returned `ok: true`, `system: Quadro`.
+  - one live workflow run returned `200` and decremented the private-demo session to `1` run remaining.
