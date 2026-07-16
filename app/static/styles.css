@@ -315,7 +315,7 @@ h3 {
   grid-template-columns: 220px minmax(680px, 1fr) 270px;
   gap: 18px;
   margin: 24px 0;
-  height: clamp(560px, calc(100vh - 230px), 760px);
+  height: clamp(720px, calc(100vh - 170px), 900px);
 }
 
 .agent-rail,
@@ -445,7 +445,7 @@ h3 {
 
 .chat-panel {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto minmax(220px, 1fr) auto;
   overflow: hidden;
 }
 
@@ -476,7 +476,8 @@ h3 {
 
 .chat-feed {
   overflow: auto;
-  padding: 16px 18px;
+  min-height: 0;
+  padding: 16px 18px 20px;
   background:
     linear-gradient(180deg, rgba(247, 251, 253, 0.78), rgba(255, 255, 255, 0.92));
 }
@@ -795,20 +796,28 @@ h3 {
 
 .composer {
   border-top: 1px solid var(--line);
-  padding: 14px;
-  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.96);
 }
 
 .document-dock {
   display: grid;
-  gap: 8px;
-  margin-bottom: 12px;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(340px, 1.1fr);
+  grid-template-areas:
+    "dataset ask-label"
+    "dataset prompt"
+    "file-label prompt"
+    "file summary";
+  gap: 7px;
+  margin-bottom: 10px;
+  align-items: start;
 }
 
 .dataset-loader {
+  grid-area: dataset;
   border: 1px solid rgba(31, 127, 163, 0.28);
   border-radius: 8px;
-  padding: 10px;
+  padding: 9px;
   background: linear-gradient(180deg, rgba(241, 250, 254, 0.92), rgba(255, 255, 255, 0.96));
 }
 
@@ -820,7 +829,7 @@ h3 {
 }
 
 .dataset-summary {
-  margin-top: 8px;
+  margin-top: 6px;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.35;
@@ -844,9 +853,18 @@ h3 {
   text-transform: uppercase;
 }
 
+.document-dock label[for="prompt"] {
+  grid-area: ask-label;
+}
+
+.document-dock label[for="document-file"] {
+  grid-area: file-label;
+  align-self: end;
+}
+
 .field-label {
   display: block;
-  margin: 4px 0 7px;
+  margin: 2px 0 6px;
   color: var(--muted);
   font-size: 12px;
   font-weight: 850;
@@ -854,15 +872,17 @@ h3 {
 }
 
 .document-dock input {
+  grid-area: file;
   width: 100%;
   border: 1px dashed var(--line-strong);
   border-radius: 8px;
-  padding: 9px;
+  padding: 8px;
   background: #f8fcfe;
   color: var(--muted);
 }
 
 .document-summary {
+  grid-area: summary;
   min-height: 20px;
   color: var(--muted);
   font-size: 12px;
@@ -870,8 +890,11 @@ h3 {
 }
 
 .composer textarea {
+  grid-area: prompt;
   width: 100%;
-  min-height: 68px;
+  min-height: 128px;
+  height: 128px;
+  max-height: 170px;
   resize: vertical;
   border: 1px solid var(--line-strong);
   border-radius: 8px;
@@ -1141,6 +1164,17 @@ h3 {
 
   .dataset-controls {
     grid-template-columns: 1fr;
+  }
+
+  .document-dock {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "dataset"
+      "ask-label"
+      "prompt"
+      "file-label"
+      "file"
+      "summary";
   }
 
   button {
